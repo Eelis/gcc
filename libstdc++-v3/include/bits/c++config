@@ -134,6 +134,15 @@
 # endif
 #endif
 
+// Macro for &-qualified functions, to support in mixed 03/0x mode.
+#ifndef _GLIBCXX_LVALUE_QUALIFIED
+# if __cplusplus >= 201103L
+#  define _GLIBCXX_LVALUE_QUALIFIED &
+# else
+#  define _GLIBCXX_LVALUE_QUALIFIED
+# endif
+#endif
+
 #ifndef _GLIBCXX_NOTHROW
 # define _GLIBCXX_NOTHROW _GLIBCXX_USE_NOEXCEPT
 #endif

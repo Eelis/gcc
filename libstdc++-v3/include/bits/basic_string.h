@@ -2705,8 +2705,20 @@ _GLIBCXX_BEGIN_NAMESPACE_CXX11
       */
       basic_string
       substr(size_type __pos = 0, size_type __n = npos) const
+	_GLIBCXX_LVALUE_QUALIFIED
       { return basic_string(*this,
 			    _M_check(__pos, "basic_string::substr"), __n); }
+
+# if __cplusplus >= 201103L
+      basic_string
+      substr(size_type __pos = 0, size_type __n = npos) &&
+      {
+	_M_check(__pos, "basic_string::substr");
+	if (__pos + __n < size()) erase(__pos + __n);
+	erase(0, __pos);
+	return std::move(*this);
+      }
+#endif
 
       /**
        *  @brief  Compare to a string.
